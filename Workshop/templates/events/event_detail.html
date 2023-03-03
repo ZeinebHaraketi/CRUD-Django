@@ -5,8 +5,8 @@
 <p>{{ event.description }}</p>
 <img src="{{event.imageEvent.url }}" alt="imageEvent"/>
 <p>{{ event.category }}</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Participate</button>
-  </form>
+<!-- <form method="post">
+    {% csrf_token %} -->
+    <a href='{% url "Event_participate" event.id %}' class="btn btn-primary">Participate</a>
+  <!-- </form> -->
 {% endblock content %}

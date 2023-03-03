@@ -139,14 +139,22 @@ def delete_event(request, pk):
 
 def participate(request,pk):
     event = get_object_or_404(Event, pk=pk)
-    if request.method == 'POST':
+    # if request.method == 'POST':
         # Create a new Participation object for the current user and event
+    if Participation.objects.filter(person=request.user, event=event).count()==0:
         participation = Participation.objects.create(person=request.user, event=event)
+        print('-----------------------------------------------------')
+        print(event.nbParticipants)
         event.nbParticipants += 1
         event.save()
-        return redirect('Events_detailV', pk=event.pk)
-    context = {'event': event}
-    return render(request, 'events/participate.html', context)
+
+        messages.add_message(request, messages.SUCCESS, f'Your Particpation to the event: {event.title} was added Successfully!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You are already partipitating in this event')
+
+    print(event.nbParticipants)
+    return redirect('Events_listV')
+
 
 
 
