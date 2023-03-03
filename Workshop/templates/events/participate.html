@@ -1,0 +1,13 @@
+<!-- participate.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Participate in {{ event.title }}</h1>
+  <p>{{ event.description }}</p>
+  <img src="{{event.imageEvent.url }}" alt="imageEvent"/>
+  <p>{{ event.category }}</p>
+  <form  method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Participate</button>
+  </form>
+{% endblock %}

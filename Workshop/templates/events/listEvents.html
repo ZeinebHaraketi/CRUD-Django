@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table table-strped mt-5">    
+    <tr>
+        <td>Title</td>
+        <td>Description</td>
+        <td>nbParticipants</td>
+        <td>Image</td>
+        <td>Organizer</td>
+
+    </tr>
+    {% for event in events %}
+        <tr>
+            <!-- <td>{{ event.title }}</td> -->
+            <td><a href="{% url 'Events_detail' event.id %}">
+                {{ event.title }}
+            </a></td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.nbParticipants }}</td>
+            <td><img src="{{ event.imageEvent.url }}" alt="imageEvent" width="170px" height="120px"/></td>
+            <td> {{event.organized}}</td>
+            <td>
+                <a href="{% url 'Events_editM' event.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="{% url 'Event_delete' event.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+                <a href="{% url 'Events_detail' event.id %}" class="btn btn-sm btn-outline-success">Show</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
